@@ -35,7 +35,7 @@ const addLetter = letter => {
 
 
 const addBodyPart = bodyPart => {
-    ctx.fillStyle = '#000000';  // hombrecito se dibuje color blanco
+    ctx.fillStyle = '#000000';  // hombrecito se dibuje color negro
     ctx.fillRect(...bodyPart);   // descontruccion: pasarle la parte del cuerpo que debe ir
 };
 
@@ -82,7 +82,7 @@ const letterInput = letter => {
 }; 
 
 
-const letterEvent = event => {
+const   letterEvent = event => {
     let newLetter = event.key.toUpperCase(); 
     if(newLetter.match(/^[a-zñ]$/i)+[0-9]&& !usedLetters.includes(newLetter)) {  // El usuario toco una letra darle como correcto, ademas de si se uso la letra
         letterInput(newLetter);  
@@ -113,7 +113,7 @@ const selectRandomWord = () => {
 
 // dibujamos el hombrecito
 const drawHangMan = () => {
-    ctx.canvas.width  = 120;
+    ctx.canvas.width  = 140;
     ctx.canvas.height = 160;
     ctx.scale(20, 20);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -139,6 +139,22 @@ const startGame = () => {
 };
 
 startButton.addEventListener('click', startGame);
+
+
+const yo = () => {
+    usedLetters = [];    // letras que utilizamos
+    mistakes = 0;   // 0 errores
+    hits = 0;    // 0 aciertos
+    wordContainer.innerHTML = '';  // contenedor de la palabra vacia
+    usedLetters.innerHTML = '';    // letra usada vacia
+    yo.style.display = 'none';   // comineza el juego y el start desaparece
+    drawHangMan();
+    selectRandomWord();
+    drawWord();
+    document.addEventListener('keydown', letterEvent);
+}
+
+yo.addEventListener("click", yo)
 
 
 
